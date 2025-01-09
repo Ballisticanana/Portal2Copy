@@ -13,6 +13,10 @@ public class PortalScripts : MonoBehaviour
 
     public Camera otherPortalCam;
     public Transform otherPortalTransform;
+    private void Update()
+    {
+        Debug.DrawLine(portalTransform.position, portalTransform.position + Vector3.forward, Color.red);
+    }
     public void SetNearClipPlane()
     {
         // Learning resource:
