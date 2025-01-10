@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: ShaderGraph_RedPortalsTexture
+  m_Name: ShaderGraph_Player1_RedPortalsTexture
   m_Shader: {fileID: -6465566751694194690, guid: a8641b360577cef41989ec90e0e97c10, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0

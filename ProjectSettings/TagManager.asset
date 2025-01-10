@@ -13,12 +13,12 @@ TagManager:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - HideCube_player1
   - Water
   - UI
   - Player1
   - Player2
-  - 
+  - HideCube_player2
   - 
   - 
   - 
