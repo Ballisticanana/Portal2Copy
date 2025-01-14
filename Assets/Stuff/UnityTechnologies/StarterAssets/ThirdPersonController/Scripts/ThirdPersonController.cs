@@ -75,6 +75,8 @@ namespace StarterAssets
         [Tooltip("For locking the camera position on all axis")]
         public bool LockCameraPosition = false;
 
+        public Vector3 currentHorizontalDirection;
+
         // cinemachine
         private float _cinemachineTargetYaw;
         private float _cinemachineTargetPitch;
@@ -173,11 +175,12 @@ namespace StarterAssets
             JumpAndGravity();
             GroundedCheck();
             Move();
+            CameraRotation();
         }
 
         private void LateUpdate()
         {
-            CameraRotation();
+            
         }
 
         private void AssignAnimationIDs()
@@ -283,7 +286,8 @@ namespace StarterAssets
             }
 
 
-            Vector3 targetDirection = Quaternion.Euler(0.0f, _targetRotation, 0.0f) * Vector3.forward;
+            Vector3 targetDirection = Quaternion.Euler(0.0f, _targetRotation + currentHorizontalDirection.y, 0.0f) * Vector3.forward;
+            currentHorizontalDirection = Vector3.zero;
 
             // move the player
             _controller.Move(targetDirection.normalized * (_speed * Time.deltaTime) +
