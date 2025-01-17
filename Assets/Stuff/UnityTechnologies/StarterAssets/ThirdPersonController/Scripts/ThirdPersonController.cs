@@ -72,6 +72,9 @@ namespace StarterAssets
         [Tooltip("Additional degress to override the camera. Useful for fine tuning camera position when locked")]
         public float CameraAngleOverride = 0.0f;
 
+        [Tooltip("Additional degress to override the camera. Useful for fine tuning camera position when locked")]
+        public float CameraAngleOverrideY = 0.0f;
+
         [Tooltip("For locking the camera position on all axis")]
         public bool LockCameraPosition = false;
 
@@ -83,6 +86,9 @@ namespace StarterAssets
 
         // player
         public string playerColor;
+
+        public bool playerCanTeleport = true;
+
         public bool invertMouseY;
         private int mouseInvert = 1;
         public float lookSpeed;
@@ -223,13 +229,19 @@ namespace StarterAssets
             _cinemachineTargetYaw = ClampAngle(_cinemachineTargetYaw, float.MinValue, float.MaxValue);
             _cinemachineTargetPitch = ClampAngle(_cinemachineTargetPitch, BottomClamp, TopClamp);
 
+            CameraAngleOverrideY = CameraAngleOverrideY % 360;
             // Cinemachine will follow this target
-            CinemachineCameraTarget.transform.rotation = Quaternion.Euler(_cinemachineTargetPitch + CameraAngleOverride,
-                _cinemachineTargetYaw, 0.0f);
+            CinemachineCameraTarget.transform.rotation = Quaternion.Euler(_cinemachineTargetPitch + CameraAngleOverride, _cinemachineTargetYaw + CameraAngleOverrideY, 0.0f);
         }
 
         private void Move()
         {
+            if (Input.GetKeyDown(KeyCode.R) == true)
+            {
+                
+            }
+
+
             if (_input.sprint == true & _input.move == Vector2.zero)
             {
                 _input.sprint = false;
@@ -290,8 +302,7 @@ namespace StarterAssets
             currentHorizontalDirection = Vector3.zero;
 
             // move the player
-            _controller.Move(targetDirection.normalized * (_speed * Time.deltaTime) +
-                             new Vector3(0.0f, _verticalVelocity, 0.0f) * Time.deltaTime);
+            _controller.Move(targetDirection.normalized * (_speed * Time.deltaTime) + new Vector3(0.0f, _verticalVelocity, 0.0f) * Time.deltaTime);
 
             // update animator if using character
             if (_hasAnimator)

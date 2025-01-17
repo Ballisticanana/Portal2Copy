@@ -9,29 +9,22 @@ public class PortalScripts : MonoBehaviour
 
     public Camera playerCam;
     public Camera portalCam;
+    public Transform otherPortal;
 
-    public Transform player1;
-    public Transform wholePlayer1Trans;
-    public ThirdPersonController player1Controller;
-
-    public Transform player2;
-    public Transform wholePlayer2Trans;
-    public ThirdPersonController player2Controller;
+    public Transform player;
+    public ThirdPersonController playerController;
 
     public bool canTpPlayer1 = true;
 
-    public Transform otherPortal;
+    
     public void Start()
     {
-        player1Controller = player1.GetComponentInParent<ThirdPersonController>();
-        player2Controller = player2.GetComponentInParent<ThirdPersonController>();
+        playerController = player.GetComponentInParent<ThirdPersonController>();
         /*GameObject.Find("Red Player1").GetComponent<ThirdPersonController>();
         GameObject.Find("Blue Player1").GetComponent<ThirdPersonController>();*/
     }
     public void SetNearClipPlane()
     {
-        // Learning resource:
-        // http://www.terathon.com/lengyel/Lengyel-Oblique.pdf
         Transform clipPlane = transform;
         int dot = System.Math.Sign(Vector3.Dot(clipPlane.forward, transform.position - portalCam.transform.position));
 
@@ -56,26 +49,24 @@ public class PortalScripts : MonoBehaviour
     public void Update()
     {
         Vector3 forward = transform.TransformDirection(Vector3.forward);
-        Vector3 toOther = Vector3.Normalize(player1.position - transform.position);
-        //Debug.Log(Vector3.Distance(player1.position, transform.position) < 0.7);
-        Debug.Log(otherPortal.eulerAngles - transform.eulerAngles);
-        if (Vector3.Dot(forward, toOther) > 0 & Vector3.Distance(player1.position,transform.position) < 0.7 & canTpPlayer1 == true)
+        Vector3 toOther = Vector3.Normalize(player.position - transform.position);
+        //Debug.Log(otherPortal.eulerAngles - transform.eulerAngles);
+        if (Vector3.Dot(forward, toOther) > 0 && Vector3.Distance(player.position,transform.position) < 3 && playerController.playerCanTeleport == true)
         {
+            playerController.playerCanTeleport = false;
+            playerController.enabled = false;
             StartCoroutine("PortalTravelCooldown");
-            //print("The player transform is behind me!");
+            print("The player transform is behind me!");
         }
     }
     IEnumerator PortalTravelCooldown()
     {
-        canTpPlayer1 = false;
-        player1Controller.enabled = false;
-        player1Controller.currentHorizontalDirection = wholePlayer1Trans.eulerAngles + (otherPortal.eulerAngles - transform.eulerAngles) - new Vector3(0, -180, 0);
-        Debug.Log(player1Controller.enabled);
-        wholePlayer1Trans.eulerAngles = wholePlayer1Trans.eulerAngles + (otherPortal.eulerAngles - transform.eulerAngles) - new Vector3(0, -180, 0);
-        wholePlayer1Trans.transform.position += (otherPortal.transform.position - transform.position);
-        player1Controller.enabled = true;
-        Debug.Log(player1Controller.enabled);
+        player.transform.position += (otherPortal.transform.position - transform.position);
+        playerController.CameraAngleOverrideY += (otherPortal.eulerAngles.y - transform.eulerAngles.y) - 180;
+        Debug.Log((otherPortal.eulerAngles.y - transform.eulerAngles.y) - 180);
+        yield return new WaitForSeconds(0.05f);
+        playerController.enabled = true;
         yield return new WaitForSeconds(1);
-        canTpPlayer1 = true;
+        playerController.playerCanTeleport = true;
     }
 }
