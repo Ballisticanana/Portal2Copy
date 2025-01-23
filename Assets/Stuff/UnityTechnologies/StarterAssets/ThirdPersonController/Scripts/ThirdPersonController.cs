@@ -81,13 +81,14 @@ namespace StarterAssets
         public Vector3 currentHorizontalDirection;
 
         // cinemachine
-        private float _cinemachineTargetYaw;
-        private float _cinemachineTargetPitch;
+        public float _cinemachineTargetYaw;
+        public float _cinemachineTargetPitch;
 
         // player
         public string playerColor;
 
         public bool playerCanTeleport = true;
+        public bool inPortal = false;
 
         public bool invertMouseY;
         private int mouseInvert = 1;
@@ -184,10 +185,7 @@ namespace StarterAssets
             CameraRotation();
         }
 
-        private void LateUpdate()
-        {
-            
-        }
+        
 
         private void AssignAnimationIDs()
         {

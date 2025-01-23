@@ -14,9 +14,8 @@ public class PortalScripts : MonoBehaviour
     public Transform player;
     public ThirdPersonController playerController;
 
-    public bool canTpPlayer1 = true;
-
-    
+    public bool player1Portal;
+    public bool player2Portal;
     public void Start()
     {
         playerController = player.GetComponentInParent<ThirdPersonController>();
@@ -46,27 +45,63 @@ public class PortalScripts : MonoBehaviour
             portalCam.projectionMatrix = playerCam.projectionMatrix;
         }
     }
-    public void Update()
+
+    public void FixedUpdate()
     {
         Vector3 forward = transform.TransformDirection(Vector3.forward);
         Vector3 toOther = Vector3.Normalize(player.position - transform.position);
         //Debug.Log(otherPortal.eulerAngles - transform.eulerAngles);
-        if (Vector3.Dot(forward, toOther) > 0 && Vector3.Distance(player.position,transform.position) < 3 && playerController.playerCanTeleport == true)
+        if (Vector3.Dot(-forward, toOther) > 0 && playerController.playerCanTeleport == true && playerController.inPortal == true)
         {
             playerController.playerCanTeleport = false;
             playerController.enabled = false;
+            playerCam.enabled = false;
             StartCoroutine("PortalTravelCooldown");
-            print("The player transform is behind me!");
         }
     }
     IEnumerator PortalTravelCooldown()
     {
-        player.transform.position += (otherPortal.transform.position - transform.position);
+        Vector3 tempMove = player.position - transform.position;
+
+        player.position = otherPortal.position + (Quaternion.Euler(0, (otherPortal.eulerAngles.y - transform.eulerAngles.y) - 180, 0) * tempMove);
+        // + (Quaternion.Euler(0, (otherPortal.eulerAngles.y - transform.eulerAngles.y) - 180, 0) * Vector3.forward * 2)
         playerController.CameraAngleOverrideY += (otherPortal.eulerAngles.y - transform.eulerAngles.y) - 180;
+        playerController.CinemachineCameraTarget.transform.rotation = Quaternion.Euler(playerController._cinemachineTargetPitch + playerController.CameraAngleOverride, playerController._cinemachineTargetYaw + playerController.CameraAngleOverrideY, 0.0f);
+
         Debug.Log((otherPortal.eulerAngles.y - transform.eulerAngles.y) - 180);
-        yield return new WaitForSeconds(0.05f);
+        
+        yield return new WaitForSeconds(Time.deltaTime * 1);
+        playerCam.enabled = true;
         playerController.enabled = true;
         yield return new WaitForSeconds(1);
         playerController.playerCanTeleport = true;
+    }
+    public void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.name == "Red Player1" && player1Portal == true)
+        {
+            Debug.Log("in portal");
+            playerController.inPortal = true;
+        }
+
+        if (other.gameObject.name == "Blue Player1" && player2Portal == true)
+        {
+            Debug.Log("in portal");
+            playerController.inPortal = true;
+        }
+    }
+    public void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.name == "Red Player1" && player1Portal == true)
+        {
+            Debug.Log("in portal");
+            playerController.inPortal = false;
+        }
+
+        if (other.gameObject.name == "Blue Player1" && player2Portal == true)
+        {
+            Debug.Log("in portal");
+            playerController.inPortal = false;
+        }
     }
 }
