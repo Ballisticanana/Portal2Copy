@@ -7,20 +7,22 @@ public class PortalScripts : MonoBehaviour
     public float nearClipOffset = 0.05f;
     public float nearClipLimit = 0.2f;
 
+    public space _;
+
     public Camera playerCam;
     public Camera portalCam;
     public Transform otherPortal;
-
     public Transform player;
     public ThirdPersonController playerController;
 
+    public space _;
+
     public bool player1Portal;
     public bool player2Portal;
+    
     public void Start()
     {
         playerController = player.GetComponentInParent<ThirdPersonController>();
-        /*GameObject.Find("Red Player1").GetComponent<ThirdPersonController>();
-        GameObject.Find("Blue Player1").GetComponent<ThirdPersonController>();*/
     }
     public void SetNearClipPlane()
     {
@@ -48,11 +50,14 @@ public class PortalScripts : MonoBehaviour
 
     public void FixedUpdate()
     {
+        //Gets the forward direction relitive to the portals direction they face.
         Vector3 forward = transform.TransformDirection(Vector3.forward);
+        //the Vector from the player too the portal
         Vector3 toOther = Vector3.Normalize(player.position - transform.position);
-        //Debug.Log(otherPortal.eulerAngles - transform.eulerAngles);
+        //if (the player is behind the portal), (the player tp cooldown is over), and (the player is touching the portal)
         if (Vector3.Dot(-forward, toOther) > 0 && playerController.playerCanTeleport == true && playerController.inPortal == true)
         {
+            //Disables the ability for the player to be able to teleport
             playerController.playerCanTeleport = false;
             playerController.enabled = false;
             playerCam.enabled = false;
@@ -61,15 +66,14 @@ public class PortalScripts : MonoBehaviour
     }
     IEnumerator PortalTravelCooldown()
     {
-        Vector3 tempMove = player.position - transform.position;
+        ////NEW CODE MIGHT MESS UP STUFF IF THING BREAK RMOVE "+ transform.TransformDirection(-Vector3.forward)"
+        Vector3 tempMove = (player.position - transform.position) + transform.TransformDirection(-Vector3.forward);
 
         player.position = otherPortal.position + (Quaternion.Euler(0, (otherPortal.eulerAngles.y - transform.eulerAngles.y) - 180, 0) * tempMove);
-        // + (Quaternion.Euler(0, (otherPortal.eulerAngles.y - transform.eulerAngles.y) - 180, 0) * Vector3.forward * 2)
         playerController.CameraAngleOverrideY += (otherPortal.eulerAngles.y - transform.eulerAngles.y) - 180;
         playerController.CinemachineCameraTarget.transform.rotation = Quaternion.Euler(playerController._cinemachineTargetPitch + playerController.CameraAngleOverride, playerController._cinemachineTargetYaw + playerController.CameraAngleOverrideY, 0.0f);
 
-        Debug.Log((otherPortal.eulerAngles.y - transform.eulerAngles.y) - 180);
-        
+        //waits for 1 frame
         yield return new WaitForSeconds(Time.deltaTime * 1);
         playerCam.enabled = true;
         playerController.enabled = true;
@@ -77,6 +81,23 @@ public class PortalScripts : MonoBehaviour
         playerController.playerCanTeleport = true;
     }
     public void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.name == "Red Player1" && player1Portal == true)
+        {
+            Debug.Log("in portal");
+            playerController.inPortal = true;
+        }
+
+        if (other.gameObject.name == "Blue Player1" && player2Portal == true)
+        {
+            Debug.Log("in portal");
+            playerController.inPortal = true;
+        }
+    }
+
+//NEW CODE MIGHT MESS UP STUFF IF THING BREAK RMOVE
+    
+    public void OnTriggerStay.(Collider other)
     {
         if (other.gameObject.name == "Red Player1" && player1Portal == true)
         {
