@@ -1407,6 +1407,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nearClipOffset: 0.05
   nearClipLimit: 0.2
+  addedTpDist: 0
   playerCam: {fileID: 5573447036414444631}
   portalCam: {fileID: 1212523928}
   otherPortal: {fileID: 1819009145}
@@ -1740,8 +1741,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 535853217}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: 0.70710886, z: -0, w: -0.7071048}
-  m_LocalPosition: {x: -16.24, y: 1.4, z: 0.95}
+  m_LocalRotation: {x: -0, y: -0.7071027, z: -0, w: -0.70711094}
+  m_LocalPosition: {x: -21.32, y: 1.4, z: 0.95000017}
   m_LocalScale: {x: 1, y: 2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1749,7 +1750,7 @@ Transform:
   - {fileID: 549235058}
   - {fileID: 542220830}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 270, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 449.999, z: 0}
 --- !u!1 &542220829
 GameObject:
   m_ObjectHideFlags: 0
@@ -1838,6 +1839,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nearClipOffset: 0.05
   nearClipLimit: 0.2
+  addedTpDist: 0
   playerCam: {fileID: 5766226790399865421}
   portalCam: {fileID: 1622662901}
   otherPortal: {fileID: 1889816809}
@@ -3279,7 +3281,7 @@ Transform:
   m_GameObject: {fileID: 1188104594}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -18.7, y: 1.4, z: -1}
+  m_LocalPosition: {x: -24.52, y: 1.4, z: 2.61}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -3735,6 +3737,11 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1278225594}
   m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1332597983 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 663660553855735437, guid: 9ed95146dd2567b4baa19b851bd7427d, type: 3}
+  m_PrefabInstance: {fileID: 570620867004501518}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1357423281
 GameObject:
   m_ObjectHideFlags: 0
@@ -4892,6 +4899,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nearClipOffset: 0.05
   nearClipLimit: 0.2
+  addedTpDist: 0
   playerCam: {fileID: 5573447036414444631}
   portalCam: {fileID: 90239795}
   otherPortal: {fileID: 442578927}
@@ -5145,6 +5153,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nearClipOffset: 0.05
   nearClipLimit: 0.2
+  addedTpDist: 0
   playerCam: {fileID: 5766226790399865421}
   portalCam: {fileID: 271780474}
   otherPortal: {fileID: 549235058}
@@ -5519,7 +5528,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3580675970183511828, guid: 9ed95146dd2567b4baa19b851bd7427d, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -22
+      value: -18.66
       objectReference: {fileID: 0}
     - target: {fileID: 3580675970183511828, guid: 9ed95146dd2567b4baa19b851bd7427d, type: 3}
       propertyPath: m_LocalPosition.y
@@ -5527,7 +5536,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3580675970183511828, guid: 9ed95146dd2567b4baa19b851bd7427d, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 5
+      value: -3.93
       objectReference: {fileID: 0}
     - target: {fileID: 3580675970183511828, guid: 9ed95146dd2567b4baa19b851bd7427d, type: 3}
       propertyPath: m_LocalRotation.w
@@ -5588,13 +5597,39 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 663660553855735437, guid: 9ed95146dd2567b4baa19b851bd7427d, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 846148677263441115}
   m_SourcePrefab: {fileID: 100100000, guid: 9ed95146dd2567b4baa19b851bd7427d, type: 3}
 --- !u!4 &846148677263441108 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3580675970183511828, guid: 9ed95146dd2567b4baa19b851bd7427d, type: 3}
   m_PrefabInstance: {fileID: 570620867004501518}
   m_PrefabAsset: {fileID: 0}
+--- !u!136 &846148677263441115
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1332597983}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.2
+  m_Height: 1.8
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.9, z: 0}
 --- !u!4 &932687475877803345 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8398257765146927649, guid: 9ed95146dd2567b4baa19b851bd7427d, type: 3}

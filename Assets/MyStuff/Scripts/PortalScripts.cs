@@ -7,7 +7,9 @@ public class PortalScripts : MonoBehaviour
     public float nearClipOffset = 0.05f;
     public float nearClipLimit = 0.2f;
 
-    public space _;
+    public float addedTpDist;
+
+    //public space _;
 
     public Camera playerCam;
     public Camera portalCam;
@@ -15,7 +17,7 @@ public class PortalScripts : MonoBehaviour
     public Transform player;
     public ThirdPersonController playerController;
 
-    public space _;
+    //public space _;
 
     public bool player1Portal;
     public bool player2Portal;
@@ -67,9 +69,17 @@ public class PortalScripts : MonoBehaviour
     IEnumerator PortalTravelCooldown()
     {
         ////NEW CODE MIGHT MESS UP STUFF IF THING BREAK RMOVE "+ transform.TransformDirection(-Vector3.forward)"
-        Vector3 tempMove = (player.position - transform.position) + transform.TransformDirection(-Vector3.forward);
+        Vector3 tempMove = (player.position - transform.position);
+        if (gameObject.name == "Player1_RedPortal" || gameObject.name == "Player2_RedPortal")
+        {
+            player.position = transform.position;
+        }
 
-        player.position = otherPortal.position + (Quaternion.Euler(0, (otherPortal.eulerAngles.y - transform.eulerAngles.y) - 180, 0) * tempMove);
+        if (gameObject.name == "Player1_BluePortal" || gameObject.name == "Player2_BluePortal")
+        {
+            player.position = otherPortal.position;
+        }
+        //player.position += (Quaternion.Euler(0, (otherPortal.eulerAngles.y - transform.eulerAngles.y) - 180, 0) * tempMove);
         playerController.CameraAngleOverrideY += (otherPortal.eulerAngles.y - transform.eulerAngles.y) - 180;
         playerController.CinemachineCameraTarget.transform.rotation = Quaternion.Euler(playerController._cinemachineTargetPitch + playerController.CameraAngleOverride, playerController._cinemachineTargetYaw + playerController.CameraAngleOverrideY, 0.0f);
 
@@ -88,16 +98,15 @@ public class PortalScripts : MonoBehaviour
             playerController.inPortal = true;
         }
 
-        if (other.gameObject.name == "Blue Player1" && player2Portal == true)
+        if (other.gameObject.name == "Blue Player2" && player2Portal == true)
         {
             Debug.Log("in portal");
             playerController.inPortal = true;
         }
     }
 
-//NEW CODE MIGHT MESS UP STUFF IF THING BREAK RMOVE
-    
-    public void OnTriggerStay.(Collider other)
+    //NEW CODE MIGHT MESS UP STUFF IF THING BREAK RMOVE
+    public void OnTriggerStay(Collider other)
     {
         if (other.gameObject.name == "Red Player1" && player1Portal == true)
         {
@@ -105,7 +114,7 @@ public class PortalScripts : MonoBehaviour
             playerController.inPortal = true;
         }
 
-        if (other.gameObject.name == "Blue Player1" && player2Portal == true)
+        if (other.gameObject.name == "Blue Player2" && player2Portal == true)
         {
             Debug.Log("in portal");
             playerController.inPortal = true;
@@ -119,7 +128,7 @@ public class PortalScripts : MonoBehaviour
             playerController.inPortal = false;
         }
 
-        if (other.gameObject.name == "Blue Player1" && player2Portal == true)
+        if (other.gameObject.name == "Blue Player2" && player2Portal == true)
         {
             Debug.Log("in portal");
             playerController.inPortal = false;
