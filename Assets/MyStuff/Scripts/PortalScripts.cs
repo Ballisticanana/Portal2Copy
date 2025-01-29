@@ -24,7 +24,7 @@ public class PortalScripts : MonoBehaviour
     public string portalColor;
 
     private bool player1InRedPortal;
-    private bool player1InBluePortal;
+    private bool player1InBluePortal = false;
     private bool player2InRedPortal;
     private bool player2InBluePortal;
 
@@ -70,14 +70,88 @@ public class PortalScripts : MonoBehaviour
         Vector3 toOther = Vector3.Normalize(player.position - transform.position);
         //if (the player is behind the portal), (the player tp cooldown is over), and (the player is touching the portal)
 
-        if (Vector3.Dot(forward, toOther) > 0 && player1InBluePortal == true)
+        if (Vector3.Dot(forward, toOther) > 0)
         {
-           player.position = redPortal.position;
-           StartCoroutine("PortalTravelCooldown");
+            print("Behind Portal");
         }
+
+
+        if (Vector3.Dot(forward, toOther) > 0 && player1InBluePortal == true && playerController.playerCanTeleport == true)
+        {
+            playerCam.enabled = false;
+            playerController.enabled = false;
+            playerController.playerCanTeleport = false;
+            player1InBluePortal = false;
+
+            playerController.CameraAngleOverrideY += (redPortal.eulerAngles.y - bluePortal.eulerAngles.y) - 180;
+            playerController.CinemachineCameraTarget.transform.rotation = Quaternion.Euler(playerController._cinemachineTargetPitch + playerController.CameraAngleOverride, playerController._cinemachineTargetYaw + playerController.CameraAngleOverrideY, 0.0f);
+
+            Vector3 tempMove = (player.position - bluePortal.position);
+            player.position = redPortal.position;
+            player.localPosition += tempMove;
+
+            StartCoroutine("PortalTravelCooldown");
+        }
+        else if (Vector3.Dot(forward, toOther) > 0 && player1InRedPortal == true && playerController.playerCanTeleport == true)
+        {
+            playerCam.enabled = false;
+            playerController.enabled = false;
+            playerController.playerCanTeleport = false;
+            player1InRedPortal = false;
+
+            playerController.CameraAngleOverrideY += (bluePortal.eulerAngles.y - redPortal.eulerAngles.y) - 180;
+            playerController.CinemachineCameraTarget.transform.rotation = Quaternion.Euler(playerController._cinemachineTargetPitch + playerController.CameraAngleOverride, playerController._cinemachineTargetYaw + playerController.CameraAngleOverrideY, 0.0f);
+
+            Vector3 tempMove = (player.position - redPortal.position);
+            player.position = bluePortal.position;
+            player.position += (Quaternion.Euler(0, (bluePortal.eulerAngles.y - redPortal.eulerAngles.y) - 180, 0) * tempMove);
+
+            StartCoroutine("PortalTravelCooldown");
+        }
+        else if(Vector3.Dot(forward, toOther) > 0 && player2InBluePortal == true && playerController.playerCanTeleport == true)
+        {
+            playerCam.enabled = false;
+            playerController.enabled = false;
+            playerController.playerCanTeleport = false;
+            player2InBluePortal = false;
+
+            playerController.CameraAngleOverrideY += (redPortal.eulerAngles.y - bluePortal.eulerAngles.y) - 180;
+            playerController.CinemachineCameraTarget.transform.rotation = Quaternion.Euler(playerController._cinemachineTargetPitch + playerController.CameraAngleOverride, playerController._cinemachineTargetYaw + playerController.CameraAngleOverrideY, 0.0f);
+
+            Vector3 tempMove = (player.position - bluePortal.position);
+            player.position = redPortal.position;
+            player.position += (Quaternion.Euler(0, (redPortal.eulerAngles.y - bluePortal.eulerAngles.y) - 180, 0) * tempMove);
+
+            StartCoroutine("PortalTravelCooldown");
+        }
+        else if(Vector3.Dot(forward, toOther) > 0 && player2InRedPortal == true && playerController.playerCanTeleport == true)
+        {
+            playerCam.enabled = false;
+            playerController.enabled = false;
+            playerController.playerCanTeleport = false;
+            player2InRedPortal = false;
+
+            playerController.CameraAngleOverrideY += (redPortal.eulerAngles.y - redPortal.eulerAngles.y) - 180;
+            playerController.CinemachineCameraTarget.transform.rotation = Quaternion.Euler(playerController._cinemachineTargetPitch + playerController.CameraAngleOverride, playerController._cinemachineTargetYaw + playerController.CameraAngleOverrideY, 0.0f);
+
+            Vector3 tempMove = (player.position - bluePortal.position);
+            player.position = bluePortal.position;
+            player.position += (Quaternion.Euler(0, (bluePortal.eulerAngles.y - redPortal.eulerAngles.y) - 180, 0) * tempMove);
+
+            StartCoroutine("PortalTravelCooldown");
+        }
+
+
+        Debug.Log(player1InBluePortal + " " + playerController.playerCanTeleport);
     }
     IEnumerator PortalTravelCooldown()
     {
+        
+
+        
+
+        //Debug.Log("This Shit is running");
+
         //waits for 1 frame
         yield return new WaitForSeconds(Time.deltaTime * 1);
         playerCam.enabled = true;
@@ -87,15 +161,44 @@ public class PortalScripts : MonoBehaviour
     }
     public void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.name == "Red Player1" && portalColor == "Red")
+        if (other.gameObject.name == "Red Player1" && portalColor == "Red" && player1Portal == true)
         {
-            Debug.Log("in portal");
-            bool player1InRedPortal = true;
+            Debug.Log("in red portal");
+            player1InRedPortal = true;
         }
-        if (other.gameObject.name == "Red Player1" && portalColor == "Blue")
+        if (other.gameObject.name == "Red Player1" && portalColor == "Blue" && player1Portal == true)
         {
-            Debug.Log("in portal");
-            bool player1InBluePortal = true;
+            Debug.Log("in blue portal");
+            player1InBluePortal = true;
+        }
+        if (other.gameObject.name == "Blue Player2" && portalColor == "Red" && player2Portal == true)
+        {
+            Debug.Log("in red portal");
+            player1InRedPortal = true;
+        }
+        if (other.gameObject.name == "Blue Player2" && portalColor == "Blue" && player2Portal == true)
+        {
+            Debug.Log("in blue portal");
+            player1InBluePortal = true;
+        }
+    }
+
+    public void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.name == "Red Player1")
+        {
+            player1InBluePortal = false;
+            player1InRedPortal = false;
+            player2InBluePortal = false;
+            player2InRedPortal = false;
+        }
+
+        if (other.gameObject.name == "Blue Player2")
+        {
+            player1InBluePortal = false;
+            player1InRedPortal = false;
+            player2InBluePortal = false;
+            player2InRedPortal = false;
         }
     }
 }
