@@ -153,7 +153,7 @@ public class PortalScripts : MonoBehaviour
         //Debug.Log("This Shit is running");
 
         //waits for 1 frame
-        yield return new WaitForSeconds(Time.deltaTime * 1);
+        yield return new WaitForSeconds(Time.deltaTime * 3);
         playerCam.enabled = true;
         playerController.enabled = true;
         yield return new WaitForSeconds(1);
@@ -165,21 +165,25 @@ public class PortalScripts : MonoBehaviour
         {
             Debug.Log("in red portal");
             player1InRedPortal = true;
+            Physics.IgnoreLayerCollision(6, 9);
         }
         if (other.gameObject.name == "Red Player1" && portalColor == "Blue" && player1Portal == true)
         {
             Debug.Log("in blue portal");
             player1InBluePortal = true;
+            Physics.IgnoreLayerCollision(6, 9);
         }
         if (other.gameObject.name == "Blue Player2" && portalColor == "Red" && player2Portal == true)
         {
             Debug.Log("in red portal");
             player1InRedPortal = true;
+            Physics.IgnoreLayerCollision(7, 9);
         }
         if (other.gameObject.name == "Blue Player2" && portalColor == "Blue" && player2Portal == true)
         {
             Debug.Log("in blue portal");
             player1InBluePortal = true;
+            Physics.IgnoreLayerCollision(7, 9);
         }
     }
 
@@ -191,6 +195,7 @@ public class PortalScripts : MonoBehaviour
             player1InRedPortal = false;
             player2InBluePortal = false;
             player2InRedPortal = false;
+            Physics.IgnoreLayerCollision(6, 9, false);
         }
 
         if (other.gameObject.name == "Blue Player2")
@@ -199,6 +204,7 @@ public class PortalScripts : MonoBehaviour
             player1InRedPortal = false;
             player2InBluePortal = false;
             player2InRedPortal = false;
+            Physics.IgnoreLayerCollision(7, 9, false);
         }
     }
 }
