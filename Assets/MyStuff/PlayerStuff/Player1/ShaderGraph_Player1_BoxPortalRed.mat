@@ -86,7 +86,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SampleTexture2D_ef8aa070756a4201bcb15aca3d82ae16_Texture_1_Texture2D:
-        m_Texture: {fileID: 8400000, guid: bd0849f4456cf804ea49cabc84737c8c, type: 2}
+        m_Texture: {fileID: 8400000, guid: 494bf726975501548823ddd03b2a7bda, type: 2}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SpecGlossMap:

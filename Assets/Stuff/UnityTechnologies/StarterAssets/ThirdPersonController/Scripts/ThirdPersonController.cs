@@ -80,6 +80,8 @@ namespace StarterAssets
 
         public Vector3 currentHorizontalDirection;
 
+        public int test;
+
         // cinemachine
         public float _cinemachineTargetYaw;
         public float _cinemachineTargetPitch;
@@ -177,8 +179,9 @@ namespace StarterAssets
 
         private void Update()
         {
+            //working on fire inputs
             _hasAnimator = TryGetComponent(out _animator);
-
+            //if (_input.
             JumpAndGravity();
             GroundedCheck();
             Move();
