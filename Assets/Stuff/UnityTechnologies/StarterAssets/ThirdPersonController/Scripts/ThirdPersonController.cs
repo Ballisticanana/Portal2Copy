@@ -81,6 +81,7 @@ namespace StarterAssets
         public Vector3 currentHorizontalDirection;
 
         public int test;
+        public LayerMask portalRayMask;
 
         // cinemachine
         public float _cinemachineTargetYaw;
@@ -88,7 +89,7 @@ namespace StarterAssets
 
         // player
         public string playerColor;
-
+        public Transform playersPortal;
         public bool playerCanTeleport = true;
         public bool inPortal = false;
 
@@ -185,6 +186,7 @@ namespace StarterAssets
             JumpAndGravity();
             GroundedCheck();
             Move();
+            FirePortal();
             CameraRotation();
         }
 
@@ -234,15 +236,23 @@ namespace StarterAssets
             // Cinemachine will follow this target
             CinemachineCameraTarget.transform.rotation = Quaternion.Euler(_cinemachineTargetPitch + CameraAngleOverride, _cinemachineTargetYaw + CameraAngleOverrideY, 0.0f);
         }
-
+        private void FirePortal()
+        {
+            Ray ray = new Ray(_mainCamera.transform.position, _mainCamera.transform.forward);
+            RaycastHit hit;
+            if (_input.fire == true)
+            {
+                if (Physics.Raycast(ray, out hit, 1000, portalRayMask))
+                {
+                    Debug.Log(hit.collider.gameObject.name + " Was Hit At" + hit.point);
+                    playersPortal.transform.position = hit.point - (hit.collider.gameObject.transform.forward * 0.1f);
+                    playersPortal.transform.rotation = hit.collider.gameObject.transform.rotation;
+                }
+                _input.fire = false;
+            }
+        }
         private void Move()
         {
-            if (Input.GetKeyDown(KeyCode.R) == true)
-            {
-                
-            }
-
-
             if (_input.sprint == true & _input.move == Vector2.zero)
             {
                 _input.sprint = false;
