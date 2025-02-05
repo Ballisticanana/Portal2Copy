@@ -1,5 +1,6 @@
 using System.Collections;
 using StarterAssets;
+using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -78,7 +79,7 @@ public class PortalScripts : MonoBehaviour
 
         if (Vector3.Dot(forward, toOther) > 0 && player1InBluePortal == true && playerController.playerCanTeleport == true)
         {
-            playerCam.enabled = false;
+            //playerCam.enabled = false;
             playerController.enabled = false;
             playerController.playerCanTeleport = false;
             player1InBluePortal = false;
@@ -87,14 +88,14 @@ public class PortalScripts : MonoBehaviour
             playerController.CinemachineCameraTarget.transform.rotation = Quaternion.Euler(playerController._cinemachineTargetPitch + playerController.CameraAngleOverride, playerController._cinemachineTargetYaw + playerController.CameraAngleOverrideY, 0.0f);
 
             Vector3 tempMove = (player.position - bluePortal.position);
-            player.position = redPortal.position;
+            player.position = redPortal.position+ (redPortal.forward * 5f);
             player.localPosition += tempMove;
 
             StartCoroutine("PortalTravelCooldown");
         }
         else if (Vector3.Dot(forward, toOther) > 0 && player1InRedPortal == true && playerController.playerCanTeleport == true)
         {
-            playerCam.enabled = false;
+            //playerCam.enabled = false;
             playerController.enabled = false;
             playerController.playerCanTeleport = false;
             player1InRedPortal = false;
@@ -103,14 +104,14 @@ public class PortalScripts : MonoBehaviour
             playerController.CinemachineCameraTarget.transform.rotation = Quaternion.Euler(playerController._cinemachineTargetPitch + playerController.CameraAngleOverride, playerController._cinemachineTargetYaw + playerController.CameraAngleOverrideY, 0.0f);
 
             Vector3 tempMove = (player.position - redPortal.position);
-            player.position = bluePortal.position;
+            player.position = bluePortal.position + (bluePortal.forward * 5f);
             player.position += (Quaternion.Euler(0, (bluePortal.eulerAngles.y - redPortal.eulerAngles.y) - 180, 0) * tempMove);
 
             StartCoroutine("PortalTravelCooldown");
         }
         else if(Vector3.Dot(forward, toOther) > 0 && player2InBluePortal == true && playerController.playerCanTeleport == true)
         {
-            playerCam.enabled = false;
+            //playerCam.enabled = false;
             playerController.enabled = false;
             playerController.playerCanTeleport = false;
             player2InBluePortal = false;
@@ -119,14 +120,14 @@ public class PortalScripts : MonoBehaviour
             playerController.CinemachineCameraTarget.transform.rotation = Quaternion.Euler(playerController._cinemachineTargetPitch + playerController.CameraAngleOverride, playerController._cinemachineTargetYaw + playerController.CameraAngleOverrideY, 0.0f);
 
             Vector3 tempMove = (player.position - bluePortal.position);
-            player.position = redPortal.position;
+            player.position = redPortal.position + (redPortal.forward * 5f);
             player.position += (Quaternion.Euler(0, (redPortal.eulerAngles.y - bluePortal.eulerAngles.y) - 180, 0) * tempMove);
 
             StartCoroutine("PortalTravelCooldown");
         }
         else if(Vector3.Dot(forward, toOther) > 0 && player2InRedPortal == true && playerController.playerCanTeleport == true)
         {
-            playerCam.enabled = false;
+            //playerCam.enabled = false;
             playerController.enabled = false;
             playerController.playerCanTeleport = false;
             player2InRedPortal = false;
@@ -135,7 +136,7 @@ public class PortalScripts : MonoBehaviour
             playerController.CinemachineCameraTarget.transform.rotation = Quaternion.Euler(playerController._cinemachineTargetPitch + playerController.CameraAngleOverride, playerController._cinemachineTargetYaw + playerController.CameraAngleOverrideY, 0.0f);
 
             Vector3 tempMove = (player.position - bluePortal.position);
-            player.position = bluePortal.position;
+            player.position = bluePortal.position + (bluePortal.forward * 5f);
             player.position += (Quaternion.Euler(0, (bluePortal.eulerAngles.y - redPortal.eulerAngles.y) - 180, 0) * tempMove);
 
             StartCoroutine("PortalTravelCooldown");
@@ -156,7 +157,7 @@ public class PortalScripts : MonoBehaviour
         yield return new WaitForSeconds(Time.deltaTime * 3);
         playerCam.enabled = true;
         playerController.enabled = true;
-        yield return new WaitForSeconds(1);
+        //yield return new WaitForSeconds(1);
         playerController.playerCanTeleport = true;
     }
     public void OnTriggerEnter(Collider other)

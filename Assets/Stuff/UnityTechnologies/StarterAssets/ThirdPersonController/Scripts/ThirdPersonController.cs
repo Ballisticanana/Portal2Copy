@@ -82,6 +82,7 @@ namespace StarterAssets
 
         public int test;
         public LayerMask portalRayMask;
+        public LayerMask secondPortalRayMask;
 
         // cinemachine
         public float _cinemachineTargetYaw;
@@ -244,9 +245,19 @@ namespace StarterAssets
             {
                 if (Physics.Raycast(ray, out hit, 1000, portalRayMask))
                 {
-                    Debug.Log(hit.collider.gameObject.name + " Was Hit At" + hit.point);
-                    playersPortal.transform.position = hit.point - (hit.collider.gameObject.transform.forward * 0.1f);
-                    playersPortal.transform.rotation = hit.collider.gameObject.transform.rotation;
+                    Ray downRay = new Ray(hit.point, Vector3.down);
+                    RaycastHit secondHit;
+                    if (Physics.Raycast(downRay, out secondHit, 1, secondPortalRayMask))
+                    {
+                        print("i cant do that");
+                    }
+                    else
+                    {
+                        Debug.Log(hit.collider.gameObject.name + " Was Hit At" + hit.point);
+                        playersPortal.transform.position = hit.point - (hit.collider.gameObject.transform.forward * 0.001f);
+                        playersPortal.transform.rotation = hit.collider.gameObject.transform.rotation;
+                    }
+                    
                 }
                 _input.fire = false;
             }

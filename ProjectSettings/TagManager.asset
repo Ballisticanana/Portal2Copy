@@ -9,6 +9,7 @@ TagManager:
   - MainCameraBlue
   - Portal 1
   - Portal 2
+  - Floor
   layers:
   - Default
   - TransparentFX
@@ -20,7 +21,7 @@ TagManager:
   - Player2
   - HideCube_player2
   - Can Have A Portal on It
-  - 
+  - Floor
   - 
   - 
   - 
