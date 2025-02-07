@@ -154,7 +154,7 @@ public class PortalScripts : MonoBehaviour
         //Debug.Log("This Shit is running");
 
         //waits for 1 frame
-        yield return new WaitForSeconds(Time.deltaTime * 3);
+        yield return new WaitForSeconds(Time.deltaTime * 1);
         playerCam.enabled = true;
         playerController.enabled = true;
         //yield return new WaitForSeconds(1);
