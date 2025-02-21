@@ -245,23 +245,95 @@ namespace StarterAssets
             {
                 if (Physics.Raycast(ray, out hit, 1000, portalRayMask))
                 {
-                    Ray downRay = new Ray(hit.point, Vector3.down);
-                    RaycastHit secondHit;
-                    if (Physics.Raycast(downRay, out secondHit, 1, secondPortalRayMask))
+                    Ray topLeftRay = new Ray(hit.point + (hit.collider.gameObject.transform.rotation * new Vector3(-0.5f, 1, -0.1f)), Vector3.down);
+                    RaycastHit topLeftHit;           
+                    if (Physics.Raycast(topLeftRay, out topLeftHit, 2, secondPortalRayMask))
                     {
-                        print("i cant do that");
+                        print("TopLeftHit");
+                        _input.fire = false;
+                        Debug.DrawRay(hit.point + (hit.collider.gameObject.transform.rotation * new Vector3(-0.5f, 1, -0.1f)), Vector3.down);
                     }
                     else
                     {
-                        Debug.Log(hit.collider.gameObject.name + " Was Hit At" + hit.point);
-                        playersPortal.transform.position = hit.point - (hit.collider.gameObject.transform.forward * 0.001f);
-                        playersPortal.transform.rotation = hit.collider.gameObject.transform.rotation;
+                        Ray bottomLeftRay = new Ray(hit.point + (hit.collider.gameObject.transform.rotation * new Vector3(-0.5f, -1, -0.1f)), Vector3.right);
+                        RaycastHit bottomLeftHit;
+                        if (Physics.Raycast(bottomLeftRay, out bottomLeftHit, 1, secondPortalRayMask))
+                        {
+                            print("BottomLeftHit");
+                            _input.fire = false;
+                            Debug.DrawRay(hit.point + (hit.collider.gameObject.transform.rotation * new Vector3(-0.5f, -1, -0.1f)), Vector3.right);
+                        }
+                        else
+                        {
+                            Ray bottomRightRay = new Ray(hit.point + (hit.collider.gameObject.transform.rotation * new Vector3(0.5f, -1, -0.1f)), Vector3.up);
+                            RaycastHit bottomRightHit;
+                            if (Physics.Raycast(bottomRightRay, out bottomRightHit, 2, secondPortalRayMask))
+                            {
+                                print("BottomRightHit");
+                                _input.fire = false;
+                                Debug.DrawRay(hit.point + (hit.collider.gameObject.transform.rotation * new Vector3(0.5f, -1, -0.1f)), Vector3.up);
+                            }
+                            else
+                            {
+                                Ray topRightRay = new Ray(hit.point + (hit.collider.gameObject.transform.rotation * new Vector3(0.5f, 1, -0.1f)), Vector3.left);
+                                RaycastHit topRightHit;
+                                if (Physics.Raycast(topRightRay, out topRightHit, 1, secondPortalRayMask))
+                                {
+                                    print("TopRightHit");
+                                    _input.fire = false;
+                                    Debug.DrawRay(hit.point + (hit.collider.gameObject.transform.rotation * new Vector3(0.5f, 1, -0.1f)), Vector3.left);
+                                }
+                                else
+                                {
+                                    Debug.DrawRay(hit.point + (hit.collider.gameObject.transform.rotation * new Vector3(-0.5f, 1, -0.1f)), Vector3.down);
+                                    Debug.DrawRay(hit.point + (hit.collider.gameObject.transform.rotation * new Vector3(-0.5f, -1, -0.1f)), Vector3.right);
+                                    Debug.DrawRay(hit.point + (hit.collider.gameObject.transform.rotation * new Vector3(0.5f, -1, -0.1f)), Vector3.up);
+                                    Debug.DrawRay(hit.point + (hit.collider.gameObject.transform.rotation * new Vector3(0.5f, 1, -0.1f)), Vector3.left);
+                                    //
+                                    Debug.Log(hit.collider.gameObject.name + " Was Hit At" + hit.point);
+                                    playersPortal.transform.position = hit.point - (hit.collider.gameObject.transform.forward * 0.001f);
+                                    playersPortal.transform.rotation = hit.collider.gameObject.transform.rotation;
+                                }
+                            }
+                        }
                     }
-                    
+                    //{
+                    //    Ray TopRightRay = new Ray(hit.point + new Vector3(-0.5f, -1, 0), Vector3.right);
+                    //    RaycastHit TopRightHit;
+                    //    if (Physics.Raycast(TopRightRay, out TopRightHit, 1.118f, secondPortalRayMask))
+                    //    {
+                    //        print("TopRightHit");
+                    //        _input.fire = false;
+                    //    }
+                    //    else
+                    //    {
+                    //        Ray bottomLeftRay = new Ray(hit.point + (Vector3.back * 0.1f), new Vector3(-0.5f, -1, 0));
+                    //        RaycastHit bottomLeftHit;
+                    //        if (Physics.Raycast(bottomLeftRay, out bottomLeftHit, 1.118f, secondPortalRayMask))
+                    //        {
+                    //            print("BottomLeftHit");
+                    //            _input.fire = false;
+                    //        }
+                    //        else
+                    //        {
+                    //            Ray bottomRightRay = new Ray(hit.point + (Vector3.back * 0.1f), new Vector3(0.5f, -1, 0));
+                    //            RaycastHit bottomRightHit;
+                    //            if (Physics.Raycast(bottomRightRay, out bottomRightHit, 1.118f, secondPortalRayMask))
+                    //            {
+                    //                print("BottomRightHit");
+                    //                _input.fire = false;
+                    //            }
+                    //            else
+                    //            {
+                    //                
+                    //            }
+                    //        }
+                    //    }
+                    //}
                 }
-                _input.fire = false;
             }
         }
+        
         private void Move()
         {
             if (_input.sprint == true & _input.move == Vector2.zero)
