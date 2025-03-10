@@ -384,9 +384,22 @@ MonoBehaviour:
   TopClamp: 70
   BottomClamp: -30
   CameraAngleOverride: 0
+  CameraAngleOverrideY: 0
   LockCameraPosition: 0
   currentHorizontalDirection: {x: 0, y: 0, z: 0}
+  test: 0
+  portalRayMask:
+    serializedVersion: 2
+    m_Bits: 0
+  secondPortalRayMask:
+    serializedVersion: 2
+    m_Bits: 0
+  _cinemachineTargetYaw: 0
+  _cinemachineTargetPitch: 0
   playerColor: Blue
+  playersPortal: {fileID: 0}
+  playerCanTeleport: 1
+  inPortal: 0
   invertMouseY: 0
   lookSpeed: 0.75
 --- !u!114 &8187191009901180358
@@ -422,6 +435,7 @@ MonoBehaviour:
   look: {x: 0, y: 0}
   jump: 0
   sprint: 0
+  fire: 0
   analogMovement: 0
   cursorLocked: 1
   cursorInputForLook: 1
