@@ -1,5 +1,6 @@
 using System.Collections;
 using StarterAssets;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Windows;
 using VolumetricLightsDemo;
@@ -46,9 +47,10 @@ public class TurretController : MonoBehaviour
     public GameObject rayPoint;
     public LayerMask redTurretMask;
     public LayerMask blueTurretMask;
-    private bool redInZone;
+    public bool redInZone;
     public bool blueInZone;
-    private bool killing;
+    public bool killing;
+    private bool killCheck;
     private Transform Spawn_Point_Red;
     private Transform Spawn_Point_Blue;
     private Vector2 targetStats = new Vector2(3,3);
@@ -67,7 +69,13 @@ public class TurretController : MonoBehaviour
     void Update()
     {
         #region Killing logic
-        if (killing == false)
+        if (killCheck == true)
+        {
+            killCheck = false;
+            redInZone = false;
+            blueInZone = false;
+        }
+        if (killing == false && powerOff == false && killCheck == false)
         {
             if (redInZone == true && killing == false)
             {
@@ -75,7 +83,6 @@ public class TurretController : MonoBehaviour
                 RaycastHit redRayHit;
                 if (Physics.Raycast(redRay, out redRayHit, 1000, redTurretMask))
                 {
-                    Debug.Log(redRayHit.collider);
                     if (redRayHit.collider.gameObject.name == "Red Player1")
                     {
                         killing = true;
@@ -84,6 +91,7 @@ public class TurretController : MonoBehaviour
                         redRayHit.collider.gameObject.transform.position = Spawn_Point_Red.position;
                         redRayHit.collider.gameObject.GetComponent<ThirdPersonController>().enabled = true;
                         StartCoroutine(Killing());
+                        redInZone = false;
                     }
                 }
                 Debug.DrawRay(rayPoint.transform.position, ((redPlayerPos.transform.position + new Vector3(0, 1.6f, 0)) - rayPoint.transform.position).normalized * redRayHit.distance);
@@ -95,7 +103,6 @@ public class TurretController : MonoBehaviour
                 RaycastHit blueRayHit;
                 if (Physics.Raycast(blueRay, out blueRayHit, 1000, blueTurretMask))
                 {
-                    Debug.Log(blueRayHit.collider);
                     if (blueRayHit.collider.gameObject.name == "Blue Player2")
                     {
                         killing = true;
@@ -104,12 +111,12 @@ public class TurretController : MonoBehaviour
                         blueRayHit.collider.gameObject.transform.position = Spawn_Point_Red.position;
                         blueRayHit.collider.gameObject.GetComponent<ThirdPersonController>().enabled = true;
                         StartCoroutine(Killing());
+                        blueInZone = false;
                     }
                 }
                 Debug.DrawRay(rayPoint.transform.position, ((bluePlayerPos.transform.position + new Vector3(0, 1.6f, 0)) - rayPoint.transform.position).normalized * blueRayHit.distance);
             }
         }
-        
         #endregion
         #region movement logic
         if (powerOff == true)
@@ -121,6 +128,7 @@ public class TurretController : MonoBehaviour
             }
             powerCheck = true;
             volumetricSpotLight.enabled = false;
+            killCheck = true;
         }
         else
         {
@@ -141,6 +149,7 @@ public class TurretController : MonoBehaviour
             powerCheck = false;
             volumetricSpotLight.enabled = true;
         }
+        
         #endregion
         #region color set
         if (canTargetRed == true)
@@ -203,8 +212,8 @@ public class TurretController : MonoBehaviour
     IEnumerator Killing()
     {
         hitParticle.SetActive(true);
-        killing = false;
         yield return new WaitForSeconds(0.7f);
+        killing = false;
         hitParticle.SetActive(false);
     }
     public void OnTriggerEnter(Collider other)
