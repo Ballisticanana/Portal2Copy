@@ -47,7 +47,7 @@ public class DoorScript : MonoBehaviour
         {
             maxPower = maxPower + 1;
         }
-        if (buttonInput3 != null)
+        if (buttonInput2 != null)
         {
             maxPower = maxPower + 1;
         }
