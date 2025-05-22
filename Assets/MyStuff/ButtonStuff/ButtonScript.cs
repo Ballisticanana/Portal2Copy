@@ -7,8 +7,16 @@ public class ButtonScript : MonoBehaviour
 
     public bool on;
 
-    public GameObject turretPower;
-    public bool turretPowerInvert;
+    public bool isHold;
+
+    public GameObject turretPower0;
+    public bool turretPowerInvert0;
+
+    public GameObject turretPower1;
+    public bool turretPowerInvert1;
+
+    public GameObject turretPower2;
+    public bool turretPowerInvert2;
 
     public Material colorRed;
     public Material colorRedGlow;
@@ -28,31 +36,87 @@ public class ButtonScript : MonoBehaviour
     }
     void Update()
     {
-        if (turretPower != null)
+        #region 0
+        if (turretPower0 != null)
         {
-            if (turretPowerInvert == true)
+            if (turretPowerInvert0 == true)
             {
                 if (on)
                 {
-                    turretPower.GetComponent<TurretController>().powerOff = true;
+                    turretPower0.GetComponent<TurretController>().powerOff = true;
                 }
                 else
                 {
-                    turretPower.GetComponent<TurretController>().powerOff = false;
+                    turretPower0.GetComponent<TurretController>().powerOff = false;
                 }
             }
             else
             {
                 if (on)
                 {
-                    turretPower.GetComponent<TurretController>().powerOff = false;
+                    turretPower0.GetComponent<TurretController>().powerOff = false;
                 }
                 else
                 {
-                    turretPower.GetComponent<TurretController>().powerOff = true;
+                    turretPower0.GetComponent<TurretController>().powerOff = true;
                 }
             }
         }
+        #endregion
+        #region 1
+        if (turretPower0 != null)
+        {
+            if (turretPowerInvert1 == true)
+            {
+                if (on)
+                {
+                    turretPower1.GetComponent<TurretController>().powerOff = true;
+                }
+                else
+                {
+                    turretPower1.GetComponent<TurretController>().powerOff = false;
+                }
+            }
+            else
+            {
+                if (on)
+                {
+                    turretPower1.GetComponent<TurretController>().powerOff = false;
+                }
+                else
+                {
+                    turretPower1.GetComponent<TurretController>().powerOff = true;
+                }
+            }
+        }
+        #endregion
+        #region 2
+        if (turretPower2 != null)
+        {
+            if (turretPowerInvert2 == true)
+            {
+                if (on)
+                {
+                    turretPower2.GetComponent<TurretController>().powerOff = true;
+                }
+                else
+                {
+                    turretPower2.GetComponent<TurretController>().powerOff = false;
+                }
+            }
+            else
+            {
+                if (on)
+                {
+                    turretPower2.GetComponent<TurretController>().powerOff = false;
+                }
+                else
+                {
+                    turretPower2.GetComponent<TurretController>().powerOff = true;
+                }
+            }
+        }
+        #endregion
         #region color set
         if (canInteractRed == true)
         {
@@ -128,5 +192,65 @@ public class ButtonScript : MonoBehaviour
             print("test");
         }
         #endregion
+    }
+    public void OnTriggerEnter(Collider other)
+    {
+        Debug.Log("collided");
+        if (other.gameObject.name == "Red Player1" && canInteractRed)
+        {
+            if (isHold == false)
+            {
+                Debug.Log("red");
+                if (!on)
+                {
+                    on = true;
+                }
+                else
+                {
+                    on = false;
+                }
+            }
+            else if(isHold == true)
+            {
+                on = true;
+            }
+        }
+
+        if (other.gameObject.name == "Blue Player2" && canInteractBlue)
+        {
+            Debug.Log("blue");
+            if (isHold == false)
+            {
+                if (!on)
+                {
+                    on = true;
+                }
+                else
+                {
+                    on = false;
+                }
+            }
+            else if (isHold == true)
+            {
+                on = true;
+            }
+        }
+    }
+    public void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.name == "Red Player1" && canInteractRed)
+        {
+            if (isHold == true)
+            {
+                on = false;
+            }
+        }
+        if (other.gameObject.name == "Blue Player2" && canInteractBlue)
+        {
+            if (isHold == true)
+            {
+                on = false;
+            }
+        }
     }
 }
