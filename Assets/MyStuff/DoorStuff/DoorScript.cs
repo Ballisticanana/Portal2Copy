@@ -98,7 +98,7 @@ public class DoorScript : MonoBehaviour
         if (on == true)
         {
             doorL.transform.position = new Vector3(doorL.transform.position.x, doorL.transform.position.y, Mathf.Lerp(doorL.transform.position.z, transform.position.z + 1, step * Time.deltaTime));
-            doorR.transform.position = new Vector3(doorR.transform.position.x, doorR.transform.position.y, Mathf.Lerp(doorR.transform.position.z, transform.position.z - 1\, step * Time.deltaTime));
+            doorR.transform.position = new Vector3(doorR.transform.position.x, doorR.transform.position.y, Mathf.Lerp(doorR.transform.position.z, transform.position.z - 1, step * Time.deltaTime));
         }
         #endregion
         #region color set
