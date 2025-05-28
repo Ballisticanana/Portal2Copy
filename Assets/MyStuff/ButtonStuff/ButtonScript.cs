@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class ButtonScript : MonoBehaviour
 {
+    public bool isEndzone;
     public bool canInteractRed;
     public bool canInteractBlue;
 
@@ -195,61 +196,82 @@ public class ButtonScript : MonoBehaviour
     }
     public void OnTriggerEnter(Collider other)
     {
-        Debug.Log("collided");
-        if (other.gameObject.name == "Red Player1" && canInteractRed)
+        if (isEndzone == true)
         {
-            if (isHold == false)
+            if (other.gameObject.name == "Red Player1" && canInteractRed)
             {
-                Debug.Log("red");
-                if (!on)
+                GameObject.Find("Level Manager").GetComponent<LevelManager>().neededForSkip += 1;
+            }
+        }
+        else
+        {
+            Debug.Log("collided");
+            if (other.gameObject.name == "Red Player1" && canInteractRed)
+            {
+                if (isHold == false)
+                {
+                    Debug.Log("red");
+                    if (!on)
+                    {
+                        on = true;
+                    }
+                    else
+                    {
+                        on = false;
+                    }
+                }
+                else if (isHold == true)
                 {
                     on = true;
                 }
-                else
-                {
-                    on = false;
-                }
             }
-            else if(isHold == true)
-            {
-                on = true;
-            }
-        }
 
-        if (other.gameObject.name == "Blue Player2" && canInteractBlue)
-        {
-            Debug.Log("blue");
-            if (isHold == false)
+            if (other.gameObject.name == "Blue Player2" && canInteractBlue)
             {
-                if (!on)
+                Debug.Log("blue");
+                if (isHold == false)
+                {
+                    if (!on)
+                    {
+                        on = true;
+                    }
+                    else
+                    {
+                        on = false;
+                    }
+                }
+                else if (isHold == true)
                 {
                     on = true;
                 }
-                else
-                {
-                    on = false;
-                }
-            }
-            else if (isHold == true)
-            {
-                on = true;
             }
         }
+        
     }
     public void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.name == "Red Player1" && canInteractRed)
+        if(isEndzone == true)
         {
-            if (isHold == true)
+            if (other.gameObject.name == "Red Player1" && canInteractRed)
             {
-                on = false;
+                GameObject.Find("Level Manager").GetComponent<LevelManager>().neededForSkip -= 1;
             }
         }
-        if (other.gameObject.name == "Blue Player2" && canInteractBlue)
+        else
         {
-            if (isHold == true)
+            if (other.gameObject.name == "Red Player1" && canInteractRed)
             {
-                on = false;
+                if (isHold == true)
+                {
+                    on = false;
+                }
+            }
+            if (other.gameObject.name == "Blue Player2" && canInteractBlue)
+            {
+                if (isHold == true)
+                {
+                    on = false;
+                }
             }
         }
     }

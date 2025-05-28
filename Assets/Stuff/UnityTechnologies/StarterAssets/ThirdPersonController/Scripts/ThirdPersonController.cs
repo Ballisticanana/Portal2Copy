@@ -1,6 +1,8 @@
 ﻿ using UnityEngine;
 #if ENABLE_INPUT_SYSTEM 
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
+using UnityEngine.UIElements;
 #endif
 
 /* Note: animations are called via the controller for both the character and capsule using animator null checks
@@ -84,6 +86,11 @@ namespace StarterAssets
         public LayerMask portalRayMask;
         public LayerMask secondPortalRayMask;
 
+        public bool menu;
+        public GameObject image;
+        private int rotateExtra;
+        public LevelManager levelManager;
+
         // cinemachine
         public float _cinemachineTargetYaw;
         public float _cinemachineTargetPitch;
@@ -139,7 +146,6 @@ namespace StarterAssets
             }
         }
 
-
         private void Awake()
         {
             // get a reference to our main camera
@@ -157,7 +163,15 @@ namespace StarterAssets
 
         private void Start()
         {
-            if(invertMouseY == true)
+            //if(playerColor == "Red")
+            //{
+            //    rotateExtra = -90;
+            //}
+            //else
+            //{
+            //    rotateExtra = 90;
+            //}
+            if (invertMouseY == true)
             {
                 mouseInvert = -1;
             }
@@ -184,11 +198,17 @@ namespace StarterAssets
             //working on fire inputs
             _hasAnimator = TryGetComponent(out _animator);
             //if (_input.
-            JumpAndGravity();
-            GroundedCheck();
-            Move();
-            FirePortal();
-            CameraRotation();
+            Menu();
+            
+            if (menu == false)
+            {
+                JumpAndGravity();
+                GroundedCheck();
+                Move();
+                FirePortal();
+                CameraRotation();
+            }
+            
         }
 
         
@@ -235,7 +255,60 @@ namespace StarterAssets
 
             CameraAngleOverrideY = CameraAngleOverrideY % 360;
             // Cinemachine will follow this target
-            CinemachineCameraTarget.transform.rotation = Quaternion.Euler(_cinemachineTargetPitch + CameraAngleOverride, _cinemachineTargetYaw + CameraAngleOverrideY, 0.0f);
+            CinemachineCameraTarget.transform.rotation = Quaternion.Euler(_cinemachineTargetPitch + CameraAngleOverride, _cinemachineTargetYaw + CameraAngleOverrideY, rotateExtra);
+        }
+        private void Menu()
+        {
+            if (_input.left == true && menu == true)
+            {
+                GameObject.Find("Level Manager").GetComponent<LevelManager>().level -= 1;
+                if (GameObject.Find("Level Manager").GetComponent<LevelManager>().level < 0)
+                {
+                    GameObject.Find("Level Manager").GetComponent<LevelManager>().level = 0;
+                }
+                _input.left = false;
+            }
+
+            if (_input.right == true && menu == true)
+            {
+                GameObject.Find("Level Manager").GetComponent<LevelManager>().level += 1;
+                if (GameObject.Find("Level Manager").GetComponent<LevelManager>().level >= GameObject.Find("Level Manager").GetComponent<LevelManager>().sumOfLevels)
+                {
+                    GameObject.Find("Level Manager").GetComponent<LevelManager>().level = GameObject.Find("Level Manager").GetComponent<LevelManager>().sumOfLevels;
+                }
+                _input.right = false;
+            }
+
+            if (_input.down == true && menu == true)
+            {
+                SceneManager.LoadScene(GameObject.Find("Level Manager").GetComponent<LevelManager>().level);
+                menu = false;
+                _input.up = false;
+            }
+
+            if (_input.up == true && menu == true)
+            {
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+                menu = false;
+                _input.up = false;
+            }
+
+            if (_input.menu == true && menu == false)
+            {
+                //open
+                menu = true;
+                _input.menu = false;
+                image.active = true;
+            }
+            else if(_input.menu == true && menu == true)
+            {
+                menu = false;
+                image.active = false;
+            }
+            _input.menu = false;
+            _input.up = false;
+            //_input.down = false;
+            
         }
         private void FirePortal()
         {

@@ -94,13 +94,13 @@ public class DoorScript : MonoBehaviour
         #region open & close
         if (on == false)
         {
-            doorL.transform.position = new Vector3(doorL.transform.position.x, doorL.transform.position.y, Mathf.Lerp(doorL.transform.position.z, transform.position.z + 2.99f, step * Time.deltaTime));
-            doorR.transform.position = new Vector3(doorR.transform.position.x, doorR.transform.position.y, Mathf.Lerp(doorR.transform.position.z, transform.position.z - 2.99f, step * Time.deltaTime));
+            doorL.transform.localPosition = new Vector3(0, 2, 1 + 1.99f);
+            doorR.transform.localPosition = new Vector3(0, 2, -1 - 1.99f);  //Mathf.Lerp(doorR.transform.position.z, transform.localPosition.z - 2.99f, step * Time.deltaTime));
         }
         if (on == true)
         {
-            doorL.transform.position = new Vector3(doorL.transform.position.x, doorL.transform.position.y, Mathf.Lerp(doorL.transform.position.z, transform.position.z + 1, step * Time.deltaTime));
-            doorR.transform.position = new Vector3(doorR.transform.position.x, doorR.transform.position.y, Mathf.Lerp(doorR.transform.position.z, transform.position.z - 1, step * Time.deltaTime));
+            doorL.transform.localPosition = new Vector3(0, 2, 1);
+            doorR.transform.localPosition = new Vector3(0, 2, -1);  //Mathf.Lerp(doorR.transform.position.z, transform.localPosition.z - 1, step * Time.deltaTime));
         }
         #endregion
         #region color set
