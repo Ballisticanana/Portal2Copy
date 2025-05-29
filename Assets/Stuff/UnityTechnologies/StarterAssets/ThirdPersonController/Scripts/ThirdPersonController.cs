@@ -163,14 +163,14 @@ namespace StarterAssets
 
         private void Start()
         {
-            //if(playerColor == "Red")
-            //{
-            //    rotateExtra = -90;
-            //}
-            //else
-            //{
-            //    rotateExtra = 90;
-            //}
+            if(playerColor == "Red")
+            {
+                rotateExtra = -90;
+            }
+            else
+            {
+                rotateExtra = 90;
+            }
             if (invertMouseY == true)
             {
                 mouseInvert = -1;
@@ -298,12 +298,12 @@ namespace StarterAssets
                 //open
                 menu = true;
                 _input.menu = false;
-                image.active = true;
+                image.SetActive(true);
             }
             else if(_input.menu == true && menu == true)
             {
                 menu = false;
-                image.active = false;
+                image.SetActive(false);
             }
             _input.menu = false;
             _input.up = false;

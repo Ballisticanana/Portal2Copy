@@ -1494,12 +1494,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32d65b78241e37940a300472da27e94e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SceneName: 
   loadLevel: 0
   level: 1
   sumOfLevels: 2
   neededForSkip: 0
-  levNo: {fileID: 0}
 --- !u!1 &2082428036
 GameObject:
   m_ObjectHideFlags: 0
@@ -5003,6 +5001,7 @@ GameObject:
   - component: {fileID: 7341118898640592418}
   - component: {fileID: 1857337243858423389}
   - component: {fileID: 6670142773531467594}
+  - component: {fileID: 7341118898640592419}
   m_Layer: 0
   m_Name: Camera Player1
   m_TagString: MainCameraRed
@@ -7202,7 +7201,7 @@ Camera:
   serializedVersion: 2
   m_ClearFlags: 1
   m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
-  m_projectionMatrixMode: 1
+  m_projectionMatrixMode: 0
   m_GateFitMode: 2
   m_FOVAxisMode: 0
   m_Iso: 200
@@ -7798,6 +7797,7 @@ GameObject:
   - component: {fileID: 5239351070925231128}
   - component: {fileID: 330171473854520185}
   - component: {fileID: 4967703050723482348}
+  - component: {fileID: 8315855302960688176}
   m_Layer: 0
   m_Name: Camera Player2
   m_TagString: MainCameraBlue
@@ -9275,7 +9275,7 @@ Camera:
   serializedVersion: 2
   m_ClearFlags: 1
   m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
-  m_projectionMatrixMode: 1
+  m_projectionMatrixMode: 0
   m_GateFitMode: 2
   m_FOVAxisMode: 0
   m_Iso: 200
@@ -9315,6 +9315,20 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
+--- !u!114 &7341118898640592419
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3272162310909502292}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 206a6eee90296454794688a38b8b1b58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  flipHorizontal: 1
+  flipVertical: 0
 --- !u!114 &7351134857541395210
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10229,6 +10243,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 3916545584750276890}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8315855302960688176
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5785069425509753024}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 206a6eee90296454794688a38b8b1b58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  flipHorizontal: 1
+  flipVertical: 0
 --- !u!4 &8338321404720129585
 Transform:
   m_ObjectHideFlags: 0

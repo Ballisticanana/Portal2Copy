@@ -11856,6 +11856,7 @@ GameObject:
   - component: {fileID: 2001507906}
   - component: {fileID: 2001507905}
   - component: {fileID: 2001507904}
+  - component: {fileID: 2001507907}
   m_Layer: 0
   m_Name: Camera Player1
   m_TagString: MainCameraRed
@@ -11941,7 +11942,7 @@ Camera:
   serializedVersion: 2
   m_ClearFlags: 1
   m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
-  m_projectionMatrixMode: 1
+  m_projectionMatrixMode: 0
   m_GateFitMode: 2
   m_FOVAxisMode: 0
   m_Iso: 200
@@ -11981,6 +11982,20 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
+--- !u!114 &2001507907
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2001507902}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 206a6eee90296454794688a38b8b1b58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  flipHorizontal: 1
+  flipVertical: 0
 --- !u!1 &2005768570
 GameObject:
   m_ObjectHideFlags: 0
@@ -12761,6 +12776,7 @@ GameObject:
   - component: {fileID: 2107013653}
   - component: {fileID: 2107013652}
   - component: {fileID: 2107013651}
+  - component: {fileID: 2107013654}
   m_Layer: 0
   m_Name: Camera Player2
   m_TagString: MainCameraBlue
@@ -12846,7 +12862,7 @@ Camera:
   serializedVersion: 2
   m_ClearFlags: 1
   m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
-  m_projectionMatrixMode: 1
+  m_projectionMatrixMode: 0
   m_GateFitMode: 2
   m_FOVAxisMode: 0
   m_Iso: 200
@@ -12886,6 +12902,20 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
+--- !u!114 &2107013654
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2107013649}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 206a6eee90296454794688a38b8b1b58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  flipHorizontal: 1
+  flipVertical: 0
 --- !u!1 &2107208773
 GameObject:
   m_ObjectHideFlags: 0
@@ -12994,12 +13024,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32d65b78241e37940a300472da27e94e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SceneName: 
   loadLevel: 0
   level: 0
   sumOfLevels: 2
   neededForSkip: 0
-  levNo: {fileID: 0}
 --- !u!1 &2134134573
 GameObject:
   m_ObjectHideFlags: 0

@@ -5,24 +5,6 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
-    path: Assets/Scenes/SampleScene.unity
-    guid: 99c9720ab356a0642a771bea13969a05
-  - enabled: 0
-    path: Assets/MyStuff/Scenes/SandBox.unity
-    guid: 615037491de90ee49b92f9786d463205
-  - enabled: 0
-    path: Assets/MyStuff/Scenes/Level 2.unity
-    guid: 6041cc0105a20bf448126f76a4474c61
-  - enabled: 0
-    path: Assets/MyStuff/Scenes/Template Level 1.unity
-    guid: f5490f0c81d83944e803184af6d8ee4b
-  - enabled: 0
-    path: Assets/MyStuff/Scenes/Template Level 2.unity
-    guid: a69c2918df0fabc46afeac04d8db6c53
-  - enabled: 0
-    path: Assets/MyStuff/Scenes/Template Level 3.unity
-    guid: ddc63b31fe174c045be3add013a8308e
   - enabled: 1
     path: Assets/MyStuff/Scenes/Sandbox Level.unity
     guid: c0eb0d5d703e45a49957ff7cbc499bf0
